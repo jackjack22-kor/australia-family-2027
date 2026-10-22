@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "records": {
+    "day.2027-02-01.note": "픽스처 날짜 메모: 도착 후 페리 타기",
+    "day.2027-02-01.budget.food": "120",
+    "day.2027-02-01.budget.tickets": "",
+    "day.2027-02-01.budget.tour": "",
+    "day.2027-02-01.rainPlan": "",
+    "done.adapter": true,
+    "done.eta": true,
+    "done.sun": true,
+    "general.note": "픽스처 가족 메모: 선크림 챙기기",
+    "hotel.pullman.2027-02-01.2027-02-04.meta": {
+      "name": "풀만 키그랜드 시드니 하버",
+      "start": "2027-02-01",
+      "end": "2027-02-04",
+      "type": "hotel"
+    },
+    "hotel.pullman.2027-02-01.2027-02-04.status": "예약 완료",
+    "hotel.pullman.2027-02-01.2027-02-04.ref": "FAKE-H001",
+    "hotel.pullman.2027-02-01.2027-02-04.note": "픽스처 호텔 메모: 고층 요청",
+    "hotel.pullman.2027-02-01.2027-02-04.paid": null,
+    "flight.oz-eco.meta": {
+      "name": "아시아나 OZ601",
+      "start": "2027-01-31",
+      "end": "2027-01-31",
+      "type": "flight"
+    },
+    "flight.oz-eco.status": "확정",
+    "flight.oz-eco.ref": "FAKE-F001",
+    "flight.oz-eco.note": "",
+    "flight.oz-eco.paid": null,
+    "settings.fx": 950
+  },
+  "pending": {
+    "day.2027-02-01.note": "픽스처 날짜 메모: 도착 후 페리 타기",
+    "day.2027-02-01.budget.food": "120",
+    "day.2027-02-01.budget.tickets": "",
+    "day.2027-02-01.budget.tour": "",
+    "day.2027-02-01.rainPlan": "",
+    "done.adapter": true,
+    "done.eta": true,
+    "done.sun": true,
+    "general.note": "픽스처 가족 메모: 선크림 챙기기",
+    "hotel.pullman.2027-02-01.2027-02-04.meta": {
+      "name": "풀만 키그랜드 시드니 하버",
+      "start": "2027-02-01",
+      "end": "2027-02-04",
+      "type": "hotel"
+    },
+    "hotel.pullman.2027-02-01.2027-02-04.status": "예약 완료",
+    "hotel.pullman.2027-02-01.2027-02-04.ref": "FAKE-H001",
+    "hotel.pullman.2027-02-01.2027-02-04.note": "픽스처 호텔 메모: 고층 요청",
+    "hotel.pullman.2027-02-01.2027-02-04.paid": null,
+    "flight.oz-eco.meta": {
+      "name": "아시아나 OZ601",
+      "start": "2027-01-31",
+      "end": "2027-01-31",
+      "type": "flight"
+    },
+    "flight.oz-eco.status": "확정",
+    "flight.oz-eco.ref": "FAKE-F001",
+    "flight.oz-eco.note": "",
+    "flight.oz-eco.paid": null,
+    "settings.fx": 950
+  },
+  "selection": {
+    "plan": 1,
+    "ret": "brisbane",
+    "early": false,
+    "day": "2027-02-01"
+  }
+}

@@ -3,3 +3,4 @@ node_modules/
 .shots-baseline/
 .shots-diff/
 .shots-original/
+.shots-fixture-baseline/
