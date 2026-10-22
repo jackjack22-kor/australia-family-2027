@@ -41,6 +41,8 @@ async function newPage(seed) {
   return page;
 }
 const go = async (page, view) => { await page.evaluate(v => { location.hash = v; }, view); await page.waitForTimeout(300); };
+// 관리 모달은 화면에 보이는 관리 버튼(앱 바 또는 홈 사진 위)으로 연다.
+const openManage = page => page.locator('[data-open-manage]').filter({ visible: true }).first().click();
 const mainText = page => page.evaluate(() => document.querySelector('main').innerText);
 
 // 화면에 픽스처 값이 보이는지 확인한다. 픽스처를 바꾸면 이 기대값도 함께 바꾼다.
@@ -75,7 +77,7 @@ await expectFixtureShown(page, '픽스처');
 
 // 2. 백업 내보내기 → 빈 브라우저에서 가져오기
 console.log('— 백업 왕복');
-await page.click('[data-check="manage"]');
+await openManage(page);
 const [backupDl] = await Promise.all([page.waitForEvent('download'), page.click('#export')]);
 const backupPath = path.join(OUT, 'backup.json');
 await backupDl.saveAs(backupPath);
@@ -85,7 +87,7 @@ ok(sameRecords(backup.records, fixture.records), '백업에 모든 레코드 포
 await page.keyboard.press('Escape');
 const fresh = await newPage(null);
 await fresh.goto(base + '#cover', { waitUntil: 'networkidle' });
-await fresh.click('[data-check="manage"]');
+await openManage(fresh);
 await fresh.setInputFiles('#import-file', backupPath);
 await fresh.waitForTimeout(500);
 ok(sameRecords(await storedRecords(fresh), fixture.records), '가져온 뒤 레코드 일치', missing(fixture.records, await storedRecords(fresh)));
@@ -94,7 +96,7 @@ ok(!fresh.errors.length, '백업 왕복 중 스크립트 오류 없음', fresh.e
 
 // 3. HTML 사본 → 네트워크 없이 file://로 열기
 console.log('— HTML 사본');
-await page.click('[data-check="manage"]');
+await openManage(page);
 const [copyDl] = await Promise.all([page.waitForEvent('download'), page.click('#download')]);
 const copyPath = path.join(OUT, 'copy.html');
 await copyDl.saveAs(copyPath);
