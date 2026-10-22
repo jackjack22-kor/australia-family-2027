@@ -1,0 +1,12 @@
+{
+  "name": "australia-family-2027",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node tools/check.mjs",
+    "shots": "node tools/check.mjs --no-fail"
+  },
+  "devDependencies": {
+    "playwright": "1.56.0"
+  }
+}

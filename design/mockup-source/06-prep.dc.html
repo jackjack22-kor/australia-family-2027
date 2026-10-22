@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>A+ 준비</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:'Pretendard';src:url(/_blob/0ca66a1409617c5a8496d9cee2c89379) format('woff2');font-weight:45 920;font-display:swap}
+body{margin:0}
+a{color:#0E3B54}a:hover{color:#0A2A3C}
+</style>
+</helmet>
+<div style="width: 390px; height: 1300px; box-sizing: border-box; display: flex; flex-direction: column; background: #F3F5F7; color: #0F2533; font-family: 'Pretendard', system-ui, sans-serif; font-variant-numeric: tabular-nums; overflow: hidden">
+
+  <header style="background: #FFFFFF; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px 8px 20px; height: 60px; border-bottom: 1px solid #E3E8EC">
+    <span style="font-size: 20px; font-weight: 800">준비</span>
+    <button style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #EEF2F5; color: #0F2533; font: inherit; font-size: 14px; font-weight: 700">1안 · 브리즈번 ▾</button>
+  </header>
+
+  <div style="padding: 16px; display: flex; flex-direction: column; gap: 16px">
+
+    <section style="background: #FFFFFF; border-radius: 20px; padding: 20px; display: flex; gap: 18px; align-items: center">
+      <div style="width: 84px; height: 84px; border-radius: 50%; background: conic-gradient(#0E3B54 0deg, #E9EDF1 0deg); display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+        <div style="width: 66px; height: 66px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800">0%</div>
+      </div>
+      <div>
+        <div style="font-size: 20px; font-weight: 800">29개 중 0개 완료</div>
+        <div style="font-size: 14px; color: #4A5B66; margin-top: 4px">가장 가까운 마감 · 11/1(일) 5개</div>
+      </div>
+    </section>
+
+    <div style="display: flex; gap: 6px; overflow: hidden">
+      <sc-for list="{{ owners }}" as="o" hint-placeholder-count="6">
+        <button style="height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid {{ o.border }}; background: {{ o.bg }}; color: {{ o.fg }}; font: inherit; font-size: 14px; font-weight: 700; flex-shrink: 0">{{ o.label }}</button>
+      </sc-for>
+    </div>
+
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
+      <section style="background: #FFFFFF; border-radius: 20px; padding: 6px 16px 6px">
+        <div style="display: flex; align-items: center; justify-content: space-between; min-height: 52px">
+          <span style="font-size: 17px; font-weight: 800">{{ g.title }}</span>
+          <span style="display: flex; align-items: center; gap: 8px">
+            <span style="font-size: 13px; color: #5B6670">{{ g.count }}</span>
+            <sc-if value="{{ g.due }}" hint-placeholder-val="{{ false }}">
+              <span style="background: #FFE6DA; color: #A63B12; font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 999px">{{ g.due }}</span>
+            </sc-if>
+            <sc-if value="{{ g.collapsed }}" hint-placeholder-val="{{ false }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6670" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+            </sc-if>
+          </span>
+        </div>
+        <sc-for list="{{ g.items }}" as="t" hint-placeholder-count="3">
+          <div style="display: flex; align-items: center; gap: 8px; border-top: 1px solid #E8ECEF; min-height: 56px">
+            <label style="flex: 1; display: flex; align-items: center; gap: 12px; font-size: 15px; line-height: 1.4; min-height: 56px">
+              <input type="checkbox" style="width: 22px; height: 22px; margin: 0; flex-shrink: 0; accent-color: #0E3B54">
+              <span>{{ t.text }}</span>
+            </label>
+            <button aria-label="담당 지정" style="height: 44px; border: 0; background: transparent; padding: 0; font: inherit; display: flex; align-items: center; flex-shrink: 0">
+              <span style="border: 1px dashed #9AA8B2; color: #3E4E59; font-size: 13px; font-weight: 600; padding: 5px 10px; border-radius: 999px">+ 담당</span>
+            </button>
+          </div>
+        </sc-for>
+        <sc-if value="{{ g.more }}" hint-placeholder-val="{{ false }}">
+          <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 48px; border-top: 1px solid #E8ECEF; font-size: 14px; font-weight: 700; text-decoration: none">{{ g.more }}</a>
+        </sc-if>
+      </section>
+    </sc-for>
+  </div>
+
+  <div style="flex-grow: 1"></div>
+
+  <nav aria-label="주요 메뉴" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: #FFFFFF; border-top: 1px solid #E3E8EC; padding: 6px 4px 22px">
+    <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="5">
+      <a href="#" style="min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; font-size: 12px; font-weight: {{ tab.weight }}; color: {{ tab.color }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ tab.icon }}"></path></svg>
+        <span>{{ tab.label }}</span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const owners = ['전체','아빠','엄마','아들','딸','함께'].map((label, i) => ({
+      label, bg: i === 0 ? '#0E3B54' : '#FFFFFF', fg: i === 0 ? '#FFFFFF' : '#0F2533', border: i === 0 ? '#0E3B54' : '#DDE3E8'
+    }));
+    const it = (arr) => arr.map(text => ({ text }));
+    const groups = [
+      { title: '11월 1일까지', count: '0/5', due: 'D-10', collapsed: false, more: '', items: it([
+        'KE408 2/13·14 이코노미 좌석과 변경 수수료 확인',
+        'OZ601 취소 수수료 확인',
+        '2안 출국편 4인 요금과 수하물 확인',
+        '시드니 귀국편 좌석·공제 마일 비교',
+        '여행안·귀국 도시·귀국일 결정'
+      ]) },
+      { title: '여행안 확정 직후', count: '0/11', due: '', collapsed: false, more: '8개 더 보기', items: it([
+        '스테이플러스 예약',
+        '풀만 4인 등록·조식 운영 확인',
+        '국내선 예약·수하물 확인'
+      ]) },
+      { title: '출발 1개월 전', count: '0/9', due: '', collapsed: true, more: '', items: [] },
+      { title: '짐 챙기기', count: '0/4', due: '', collapsed: true, more: '', items: [] }
+    ];
+    const icons = {
+      home: 'M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
+      compare: 'M4 5h6v14H4zM14 5h6v14h-6z',
+      day: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+      ticket: 'M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3zM14 6v12',
+      check: 'M4 4h16v16H4zM8 12l3 3 5-6'
+    };
+    const tabs = [['home','홈'],['compare','비교'],['day','일정'],['ticket','예약'],['check','준비']].map(([k, label], i) => ({
+      label, icon: icons[k], color: i === 4 ? '#0E3B54' : '#5B6670', weight: i === 4 ? 700 : 500
+    }));
+    return { owners, groups, tabs };
+  }
+}
+</script>
+</body>
+</html>

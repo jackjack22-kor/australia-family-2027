@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>A+ 홈</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:'Pretendard';src:url(/_blob/0ca66a1409617c5a8496d9cee2c89379) format('woff2');font-weight:45 920;font-display:swap}
+body{margin:0}
+a{color:#0E3B54}a:hover{color:#0A2A3C}
+</style>
+</helmet>
+<div style="width: 390px; height: 1480px; box-sizing: border-box; display: flex; flex-direction: column; background: #F3F5F7; color: #0F2533; font-family: 'Pretendard', system-ui, sans-serif; font-variant-numeric: tabular-nums; overflow: hidden">
+
+  <div style="position: relative; height: 300px; flex-shrink: 0">
+    <img src="/_blob/5dd4678864141d6feaf6cd5ed908c406" alt="시드니 하버브리지와 오페라하우스 항공 사진" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+    <div style="position: absolute; top: 12px; left: 16px; right: 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px">
+      <span style="background: rgba(15,37,51,0.78); color: #FFFFFF; font-size: 15px; font-weight: 700; padding: 10px 14px; border-radius: 999px">호주 2027</span>
+      <div style="display: flex; gap: 8px">
+        <button style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #0F2533; font: inherit; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px">1안 · 브리즈번 귀국
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+        <button aria-label="더보기" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #FFFFFF; color: #0F2533; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"></circle><circle cx="12" cy="12" r="1.8"></circle><circle cx="19" cy="12" r="1.8"></circle></svg>
+        </button>
+      </div>
+    </div>
+    <span style="position: absolute; right: 12px; bottom: 40px; background: rgba(15,37,51,0.7); color: #FFFFFF; font-size: 12px; padding: 4px 8px; border-radius: 6px">사진 Caleb / Unsplash</span>
+  </div>
+
+  <div style="position: relative; margin-top: -28px; background: #FFFFFF; border-radius: 28px 28px 0 0; padding: 24px 20px 22px">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <span style="font-size: 14px; font-weight: 600; color: #4A5B66">1/31(일) – 2/14(일) · 호주 13박</span>
+      <span style="font-size: 14px; font-weight: 800; color: #0E3B54">출발 D-101</span>
+    </div>
+    <h1 style="margin: 6px 0 18px; font-size: 28px; line-height: 1.25; font-weight: 800; letter-spacing: -0.02em">우리 가족의 호주 여름</h1>
+    <div style="display: flex; gap: 4px; height: 10px">
+      <div style="flex: 7; background: #0E5A7E; border-radius: 5px"></div>
+      <div style="flex: 5; background: #E0A526; border-radius: 5px"></div>
+      <div style="flex: 1; background: #7A5BA6; border-radius: 5px"></div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 12px">
+      <div><div style="font-size: 15px; font-weight: 700">시드니</div><div style="font-size: 13px; color: #5B6670">7박 · 2/1부터</div></div>
+      <div><div style="font-size: 15px; font-weight: 700">골드코스트</div><div style="font-size: 13px; color: #5B6670">5박 · 2/8부터</div></div>
+      <div><div style="font-size: 15px; font-weight: 700">브리즈번</div><div style="font-size: 13px; color: #5B6670">1박 · 2/13</div></div>
+    </div>
+  </div>
+
+  <div style="padding: 16px; display: flex; flex-direction: column; gap: 16px">
+
+    <section style="background: #FFFFFF; border-radius: 20px; padding: 20px">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <h2 style="margin: 0; font-size: 19px; font-weight: 700">11월 1일까지 정할 것</h2>
+        <span style="background: #FFE6DA; color: #A63B12; font-size: 14px; font-weight: 800; padding: 6px 12px; border-radius: 999px">D-10</span>
+      </div>
+      <p style="margin: 6px 0 8px; font-size: 14px; color: #5B6670">OZ601 출발 91일 전 · 취소 여부 판단 기준일</p>
+      <sc-for list="{{ todos }}" as="t" hint-placeholder-count="3">
+        <label style="display: flex; align-items: center; gap: 12px; min-height: 52px; border-top: 1px solid #E8ECEF; font-size: 16px; line-height: 1.4">
+          <input type="checkbox" style="width: 22px; height: 22px; margin: 0; flex-shrink: 0; accent-color: #0E3B54">
+          <span>{{ t.text }}</span>
+        </label>
+      </sc-for>
+      <div style="display: flex; gap: 8px; margin-top: 12px">
+        <a href="#" style="flex: 1; height: 52px; border-radius: 14px; background: #0E3B54; color: #FFFFFF; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">두 여행안 비교</a>
+        <a href="#" style="height: 52px; padding: 0 16px; border-radius: 14px; background: #E6EEF3; color: #0E3B54; font-size: 15px; font-weight: 700; display: flex; align-items: center; text-decoration: none">할 일 5개</a>
+      </div>
+    </section>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{ widgets }}" as="w" hint-placeholder-count="4">
+        <a href="#" style="background: #FFFFFF; border-radius: 20px; padding: 16px; text-decoration: none; color: #0F2533; display: flex; flex-direction: column; min-height: 136px; box-sizing: border-box">
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="width: 32px; height: 32px; border-radius: 10px; background: {{ w.tileBg }}; color: {{ w.tileFg }}; display: flex; align-items: center; justify-content: center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ w.icon }}"></path></svg>
+            </span>
+            <span style="font-size: 14px; font-weight: 600; color: #4A5B66">{{ w.label }}</span>
+          </div>
+          <div style="font-size: {{ w.size }}; font-weight: 800; margin-top: 12px; letter-spacing: -0.01em">{{ w.value }}</div>
+          <div style="font-size: 13px; font-weight: 600; margin-top: 2px; color: {{ w.subColor }}">{{ w.sub }}</div>
+          <div style="flex-grow: 1"></div>
+          <sc-if value="{{ w.bar }}" hint-placeholder-val="{{ false }}">
+            <div style="height: 6px; background: #E9EDF1; border-radius: 3px; margin-top: 10px"></div>
+          </sc-if>
+        </a>
+      </sc-for>
+    </div>
+
+    <section style="background: #0E3B54; color: #FFFFFF; border-radius: 20px; overflow: hidden">
+      <div style="padding: 20px 20px 16px">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <span style="font-size: 13px; font-weight: 600; color: #B9D0DC">다음 항공편 · 아시아나 OZ601</span>
+          <span style="background: #D7F2E1; color: #11643A; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 999px">확정</span>
+        </div>
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-top: 16px">
+          <div><div style="font-size: 36px; font-weight: 800; letter-spacing: 0.02em">ICN</div><div style="font-size: 15px; color: #D3E3EA">20:00</div></div>
+          <div style="flex: 1; display: flex; align-items: center; gap: 8px; padding: 0 14px 26px; color: #B9D0DC">
+            <div style="flex: 1; border-top: 2px dashed #4F7A90"></div>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>
+            <div style="flex: 1; border-top: 2px dashed #4F7A90"></div>
+          </div>
+          <div style="text-align: right"><div style="font-size: 36px; font-weight: 800; letter-spacing: 0.02em">SYD</div><div style="font-size: 15px; color: #D3E3EA">08:20 <span style="font-size: 12px">+1</span></div></div>
+        </div>
+        <div style="margin-top: 14px; font-size: 14px; color: #D3E3EA">1월 31일 일요일 · 이코노미 · A380 · 4인</div>
+      </div>
+      <div style="position: relative; height: 24px">
+        <div style="position: absolute; left: 20px; right: 20px; top: 11px; border-top: 2px dashed #4F7A90"></div>
+        <div style="position: absolute; left: -12px; top: 0; width: 24px; height: 24px; border-radius: 50%; background: #F3F5F7"></div>
+        <div style="position: absolute; right: -12px; top: 0; width: 24px; height: 24px; border-radius: 50%; background: #F3F5F7"></div>
+      </div>
+      <a href="#" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 4px 20px 16px; color: #D3E3EA; font-size: 14px; text-decoration: none">
+        <span>비즈니스 4인 대기 중 · 확약 시 추가금 확인</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+      </a>
+    </section>
+  </div>
+
+  <div style="flex-grow: 1"></div>
+
+  <nav aria-label="주요 메뉴" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: #FFFFFF; border-top: 1px solid #E3E8EC; padding: 6px 4px 22px">
+    <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="5">
+      <a href="#" style="min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; font-size: 12px; font-weight: {{ tab.weight }}; color: {{ tab.color }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ tab.icon }}"></path></svg>
+        <span>{{ tab.label }}</span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1480}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const icons = {
+      home: 'M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
+      compare: 'M4 5h6v14H4zM14 5h6v14h-6z',
+      day: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+      ticket: 'M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3zM14 6v12',
+      check: 'M4 4h16v16H4zM8 12l3 3 5-6',
+      plane: 'M2 16l20-6-20-6 4 6zM6 10h8',
+      bed: 'M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5',
+      wallet: 'M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM3 7l12-4v4M17 13h.01'
+    };
+    const tabs = [['home','홈'],['compare','비교'],['day','일정'],['ticket','예약'],['check','준비']].map(([k, label], i) => ({
+      label, icon: icons[k], color: i === 0 ? '#0E3B54' : '#5B6670', weight: i === 0 ? 700 : 500
+    }));
+    return {
+      tabs,
+      todos: [
+        { text: 'KE408 2/13·14 이코노미 좌석과 변경 수수료 확인' },
+        { text: 'OZ601 취소 수수료 확인' },
+        { text: '2안 출국편 4인 요금과 수하물 확인' }
+      ],
+      widgets: [
+        { label: '항공', value: '출국 확정', size: '18px', sub: '귀국 날짜 변경 필요', subColor: '#A63B12', icon: icons.plane, tileBg: '#DCEDF5', tileFg: '#0B4A68', bar: false },
+        { label: '숙소', value: '0 / 6', size: '24px', sub: '예약 전', subColor: '#5B6670', icon: icons.bed, tileBg: '#FBEFD0', tileFg: '#7A5600', bar: true },
+        { label: '경비', value: '약 743만원', size: '20px', sub: '확정 146만원 포함', subColor: '#5B6670', icon: icons.wallet, tileBg: '#ECE5F5', tileFg: '#5A3F86', bar: false },
+        { label: '준비', value: '0 / 29', size: '24px', sub: '완료', subColor: '#5B6670', icon: icons.check, tileBg: '#E1F5E8', tileFg: '#187245', bar: true }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
