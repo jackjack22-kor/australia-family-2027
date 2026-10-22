@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "records": {
+    "done.school": true,
+    "general.owner.school": "엄마",
+    "general.note": "L8 픽스처: 예전 '학교 일정 확인'만 체크한 상태"
+  },
+  "pending": {},
+  "selection": {
+    "plan": 1,
+    "ret": "brisbane",
+    "early": false,
+    "day": "2027-02-01"
+  }
+}

@@ -29,7 +29,9 @@ fs.mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch();
 let failures = 0;
 const ok = (cond, msg, detail = '') => { if (!cond) failures++; console.log(`${cond ? '✓' : '✗'} ${msg}${!cond && detail ? ` → ${detail}` : ''}`); };
-const sameRecords = (a, b) => JSON.stringify(Object.entries(a).sort(([x], [y]) => x.localeCompare(y))) === JSON.stringify(Object.entries(b).sort(([x], [y]) => x.localeCompare(y)));
+// 앱이 붙이는 마이그레이션 표식(general.migration.*)은 비교에서 뺀다.
+const userRecords = o => Object.entries(o).filter(([k]) => !k.startsWith('general.migration.')).sort(([x], [y]) => x.localeCompare(y));
+const sameRecords = (a, b) => JSON.stringify(userRecords(a)) === JSON.stringify(userRecords(b));
 const missing = (want, got) => Object.keys(want).filter(k => JSON.stringify(want[k]) !== JSON.stringify(got[k])).join(', ');
 
 async function newPage(seed) {
@@ -115,6 +117,24 @@ ok(await offline.evaluate(() => { const i = document.querySelector('.hero-media 
 ok((await offline.textContent('#sync-status')).includes('HTML 사본'), '사본 모드로 열림');
 await expectFixtureShown(offline, '사본');
 ok(!offline.errors.length, '사본 스크립트 오류 없음(외부 CDN 차단 상태)', offline.errors.join(' | '));
+
+// 4. L8 마이그레이션: 예전 '학교 일정 확인'(done.school)만 체크한 데이터
+console.log('— L8 준비 항목 병합');
+const l8 = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools/fixtures/storage-l8.json'), 'utf8'));
+const merged = await newPage(l8);
+await merged.goto(base + '#prep', { waitUntil: 'networkidle' });
+let rec = await storedRecords(merged);
+ok(rec['done.school-application'] === true && rec['general.owner.school-application'] === '엄마', '예전 체크·담당자가 합친 항목으로 옮겨짐');
+ok(rec['done.school'] === true && rec['general.owner.school'] === '엄마', '원래 기록은 지우지 않음');
+// 합친 항목은 기본으로 접힌 '출발 1개월 전' 그룹의 '더 보기' 안에 있다
+const showSchool = async () => { const g = merged.locator('details[data-group="출발 1개월 전"]'); if (!(await g.evaluate(e => e.open))) await g.locator('summary').click(); const more = g.locator('.more-btn'); if (await more.count()) await more.click(); await merged.waitForTimeout(200); };
+await showSchool();
+ok(await merged.isChecked('[data-task="school-application"]') && !(await merged.locator('[data-task="school"]').count()), '준비 화면에 합친 항목 하나만 완료로 표시');
+await merged.locator('[data-task="school-application"]').uncheck();
+await merged.reload({ waitUntil: 'networkidle' });
+await showSchool();
+ok(!(await merged.isChecked('[data-task="school-application"]')), '체크를 풀면 다시 옮겨지지 않음');
+ok(!merged.errors.length, 'L8 점검 중 스크립트 오류 없음', merged.errors.join(' | '));
 
 await browser.close();
 srv.close();
