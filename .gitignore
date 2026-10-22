@@ -1,3 +1,5 @@
 node_modules/
 .shots/
 .shots-baseline/
+.shots-diff/
+.shots-original/

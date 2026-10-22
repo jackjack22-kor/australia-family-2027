@@ -73,7 +73,8 @@ const report = [];
 let failures = 0;
 
 for (const vp of VIEWPORTS) {
-  const ctx = await browser.newContext(vp);
+  const { width, height, isMobile, hasTouch, deviceScaleFactor } = vp;
+  const ctx = await browser.newContext({ viewport: { width, height }, isMobile, hasTouch, deviceScaleFactor });
   if (FIXTURE) {
     const data = fs.readFileSync(FIXTURE, 'utf8');
     await ctx.addInitScript(([k, v]) => { if (!sessionStorage.getItem('__fx')) { localStorage.setItem(k, v); sessionStorage.setItem('__fx', '1'); } }, [STORAGE_KEY, data]);
