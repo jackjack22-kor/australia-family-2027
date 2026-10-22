@@ -3,7 +3,7 @@
 배포: https://jackjack22-kor.github.io/australia-family-2027/#cover
 
 ## 사용
-여행안 칩(홈은 사진 위, 다른 화면은 앱 바)에서 여행안·귀국 도시·조기 귀국을 선택합니다. 화면은 홈 / 비교 / 일정 / 예약 / 준비이며 휴대폰·태블릿은 하단 탭, 1024px 이상은 앱 바 안의 탭으로 이동합니다. 더보기(⋯) 버튼은 데이터 관리를 열고, 화면 테마(라이트·다크) 전환도 그 안에 있습니다. 날짜 카드를 누르면 하루 상세가 열리고, 날짜 스트립은 그 안에서 가로로 스크롤합니다. 하루 상세의 현지 예산·우천 일정·테마파크 아이 정보는 값이 있을 때만 카드로 보이고, 비어 있으면 "+ … 추가" 버튼 하나로 입력합니다.
+여행안 칩(홈은 사진 위, 다른 화면은 앱 바)에서 여행안·귀국 도시·조기 귀국을 선택합니다. 화면은 홈 / 비교 / 일정 / 예약 / 준비이며 휴대폰·태블릿은 하단 탭, 1024px 이상은 앱 바 안의 탭으로 이동합니다. 더보기(⋯) 버튼은 데이터 관리(백업·가져오기·HTML 사본·인쇄, 화면 테마 라이트·다크, 환율·마일 가정, 멤버십, 사용 방법)를 엽니다. 하루 상세는 휴대폰에서 앱 바 대신 날짜 머리줄을 쓰므로 관리는 다른 화면에서 엽니다. 날짜 카드를 누르면 하루 상세가 열리고, 날짜 스트립은 그 안에서 가로로 스크롤합니다. 하루 상세의 현지 예산·우천 일정·테마파크 아이 정보는 값이 있을 때만 카드로 보이고, 비어 있으면 "+ … 추가" 버튼 하나로 입력합니다(L6). 준비 화면은 마감이 60일보다 먼 그룹을 접어 두고, 항목이 5개를 넘는 그룹은 3개만 보인 뒤 "n개 더 보기"로 펼칩니다.
 
 예약·메모·현지 예산·우천 일정·담당자·비상 연락처는 화면에서 편집합니다. 다른 기기와 자동 동기화하지 않습니다. 관리의 데이터 백업과 가져오기로 옮길 수 있습니다. noindex는 검색 노출 억제 요청이며 접근 제한이나 비공개 기능은 아닙니다.
 
@@ -22,7 +22,7 @@ HTML 사본 받기는 웹 주소로 연 화면에서 assets의 CSS·JS·사진�
 
 Leaflet 1.9.4(cdnjs), Pretendard 1.3.9(jsDelivr)만 버전을 고정해 외부에서 읽습니다. 지도 타일은 OpenStreetMap이며 네트워크가 필요합니다. 라이브러리·타일 로드 실패 시 지도 영역을 숨기고 장소 목록을 유지합니다.
 
-localStorage 키는 family-australia-atlas-v1, 백업 형식은 australia-atlas/version 1을 유지합니다. 기존 호텔·항공 예약 키, done.ID, day.DATE.note, general.note 및 cost 키를 변경하지 않았습니다. derive 함수 원본도 변경하지 않았습니다. 새 값은 기존 day./general. 문자열 레코드 영역에 추가하므로 마이그레이션 없이 읽습니다. 계획별 현지 예산은 실제 같은 날짜의 기록을 공유합니다.
+localStorage 키는 family-australia-atlas-v1, 백업 형식은 australia-atlas/version 1을 유지합니다. 기존 호텔·항공 예약 키, done.ID, day.DATE.note, general.note 및 cost 키를 변경하지 않았습니다. derive 함수 원본도 변경하지 않았습니다. 새 값은 기존 day./general. 문자열 레코드 영역에 추가합니다. 마이그레이션은 아래 L8 하나뿐입니다. 계획별 현지 예산은 실제 같은 날짜의 기록을 공유합니다.
 
 ## TRIP 수정 위치 (assets/data.js)
 - plans: 여행안과 출발·도착·귀국일
@@ -37,12 +37,18 @@ localStorage 키는 family-australia-atlas-v1, 백업 형식은 australia-atlas/
 - emergency: 긴급번호 000, consulate / insurance는 빈 문자열입니다.
 
 ## 화면 입력 레코드
+- 체크: done.TASK_ID (불리언)
+- 날짜 메모: day.YYYY-MM-DD.note · 가족 메모: general.note
 - 담당자: general.owner.TASK_ID
 - 현지 예산: day.YYYY-MM-DD.budget.food / tickets / tour
 - 우천 일정: day.YYYY-MM-DD.rainPlan
 - 아이 정보: general.park.PLACE_ID.height / note
 - 연락처: general.emergency.consulate / insurance
 - 마일 가정: general.mile.oz / ke. 비어 있으면 원화 환산을 표시하지 않습니다.
+- 화면 테마: settings.theme (light / dark) · 환율: settings.fx
+
+## 준비 항목 병합 (L8)
+"학교 일정 확인"(school)과 "학교 교외체험학습 신청"(school-application)을 "학교 일정 확인·교외체험학습 신청"(school-application) 하나로 합쳤습니다(29개 → 28개). 앱을 처음 열 때 한 번만 done.school·general.owner.school 값을 합친 항목으로 옮기고, 원래 기록은 지우지 않습니다. 옮긴 뒤 general.migration.l8 = "1" 표식을 남겨, 합친 항목의 체크를 풀어도 다시 옮겨지지 않습니다. 표식이 없는 예전 백업을 가져올 때도 같은 규칙을 적용합니다. 점검: tools/fixtures/storage-l8.json, tools/verify-data.mjs.
 
 ## 비용 기준
 확정 비용은 기존 OZ601 실결제 1,459,000원 및 사용자가 입력한 해당 시나리오의 실제 결제 기록입니다. KE408의 약 110만원은 추정으로 구분합니다. 추정 범위는 비교에서 중간값을 사용합니다. 미정 비용·포인트는 0원 확정으로 간주하지 않습니다. 1박당 비용은 입력된 확정+추정 합계를 체류 박수로 나눕니다. 현지 예산은 입력된 AUD 금액만 합산합니다.
@@ -69,10 +75,10 @@ localStorage 키는 family-australia-atlas-v1, 백업 형식은 australia-atlas/
 개발 점검(최초 1회 npm install, npx playwright install chromium):
 - npm run check: 390/768/1440px 화면별 스크린샷과 오버플로·글자 크기·터치 크기·콘솔 오류 점검
 - node tools/check.mjs --fixture tools/fixtures/storage.json: 가짜 저장 데이터를 넣은 상태로 점검
-- node tools/verify-data.mjs: 픽스처 표시, 백업 내보내기→가져오기 왕복, HTML 사본 오프라인 열기 점검
+- node tools/verify-data.mjs: 픽스처 표시, 백업 내보내기→가져오기 왕복, HTML 사본 오프라인 열기, L8 병합 마이그레이션 점검
 - node tools/diff-shots.mjs: 기준 스크린샷(.shots-baseline)과 픽셀 비교
 
-390 / 768 / 1440px에서 5개 화면·하루 상세·공통 모달의 scrollWidth와 clientWidth 일치를 확인했습니다. 표시 텍스트 최소 12px, 조작 요소 최소 44×44px를 측정했습니다. 본문 Unsplash 출처와 OpenStreetMap 저작권 표시는 인라인 링크 예외입니다. 라이트·다크 실제 텍스트 대비 검사에서 4.5:1 미만은 없었습니다.
+390 / 768 / 1440px에서 5개 화면·하루 상세·공통 모달의 scrollWidth와 clientWidth 일치를 확인했습니다. 표시 텍스트 최소 12px, 조작 요소 최소 44×44px를 측정했습니다. 본문 Unsplash 출처와 OpenStreetMap 저작권 표시는 인라인 링크 예외입니다. 리디자인 후 홈·비교·일정·하루 상세·예약 3탭·준비·여행안 시트·관리 모달을 라이트·다크 모두 계산한 텍스트 대비에서 AA(본문 4.5:1, 큰 글자 3:1) 미만은 없었습니다. 색·글자·간격 값은 design/tokens.css를 따르고, 화면 규칙에는 hex를 직접 쓰지 않습니다.
 
 기존 v1 저장 데이터를 새 앱 실행 전에 넣은 VM 테스트에서 날짜·가족 메모, 숙소 상태, 항공 예약번호, 체크리스트, 환율이 유지됐습니다. 실제 브라우저에서 입력·저장·새로고침도 확인했습니다. 파일 선택 기반 복원 시험은 Chrome 확장 파일 접근 권한 제한으로 실행하지 못했습니다. 이 제한을 저장 데이터 호환성 통과와 혼동하지 않습니다.
 
