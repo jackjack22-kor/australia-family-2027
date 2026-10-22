@@ -41,8 +41,8 @@ async function newPage(seed) {
   return page;
 }
 const go = async (page, view) => { await page.evaluate(v => { location.hash = v; }, view); await page.waitForTimeout(300); };
-// 관리 모달은 화면에 보이는 관리 버튼(앱 바 또는 홈 사진 위)으로 연다.
-const openManage = page => page.locator('[data-open-manage]').filter({ visible: true }).first().click();
+// 관리 모달은 준비 화면 앱 바의 관리 버튼으로 연다(홈은 사진 위, 하루 상세는 앱 바가 없다).
+const openManage = async page => { await go(page, 'prep'); await page.locator('[data-open-manage]').filter({ visible: true }).first().click(); };
 const mainText = page => page.evaluate(() => document.querySelector('main').innerText);
 
 // 화면에 픽스처 값이 보이는지 확인한다. 픽스처를 바꾸면 이 기대값도 함께 바꾼다.
