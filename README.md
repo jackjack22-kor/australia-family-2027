@@ -8,11 +8,23 @@
 예약·메모·현지 예산·우천 일정·담당자·비상 연락처는 화면에서 편집합니다. 다른 기기와 자동 동기화하지 않습니다. 관리의 데이터 백업과 가져오기로 옮길 수 있습니다. noindex는 검색 노출 억제 요청이며 접근 제한이나 비공개 기능은 아닙니다.
 
 ## 배포 파일과 호환성
-단일 index.html 안에 CSS·JS·TRIP·표지 사진을 포함합니다. Leaflet 1.9.4(cdnjs), Pretendard 1.3.9(jsDelivr)만 버전을 고정해 외부에서 읽습니다. 지도 타일은 OpenStreetMap이며 네트워크가 필요합니다. 라이브러리·타일 로드 실패 시 지도 영역을 숨기고 장소 목록을 유지합니다. 저장한 HTML 사본에서는 메모와 비상정보 등 핵심 내용을 오프라인에서 볼 수 있습니다.
+배포 파일은 GitHub Pages(main 브랜치 루트)에 그대로 올라가는 정적 파일입니다. 빌드 단계는 없습니다.
+
+| 파일 | 내용 |
+|---|---|
+| index.html | 마크업 골격. assets/app.css, assets/data.js, assets/app.js를 이 순서로 읽습니다. |
+| assets/app.css | 스타일 |
+| assets/data.js | TRIP 원본 데이터(여행안·일정·숙소·항공·준비항목) |
+| assets/app.js | 저장·계산(derive)·화면 렌더링·편집·백업 |
+| assets/img/sydney.jpg | 표지 사진 |
+
+HTML 사본 받기는 웹 주소로 연 화면에서 assets의 CSS·JS·사진을 읽어 한 파일 안에 넣습니다. 받은 사본은 네트워크 없이 열려도 메모·예약·비상정보 등 핵심 내용을 보여 줍니다. 사본을 다시 내려받을 때는 이미 들어 있는 내용을 씁니다. index.html을 file://로 직접 열면 브라우저가 assets를 읽지 못해 사본을 만들 수 없습니다.
+
+Leaflet 1.9.4(cdnjs), Pretendard 1.3.9(jsDelivr)만 버전을 고정해 외부에서 읽습니다. 지도 타일은 OpenStreetMap이며 네트워크가 필요합니다. 라이브러리·타일 로드 실패 시 지도 영역을 숨기고 장소 목록을 유지합니다.
 
 localStorage 키는 family-australia-atlas-v1, 백업 형식은 australia-atlas/version 1을 유지합니다. 기존 호텔·항공 예약 키, done.ID, day.DATE.note, general.note 및 cost 키를 변경하지 않았습니다. derive 함수 원본도 변경하지 않았습니다. 새 값은 기존 day./general. 문자열 레코드 영역에 추가하므로 마이그레이션 없이 읽습니다. 계획별 현지 예산은 실제 같은 날짜의 기록을 공유합니다.
 
-## TRIP 수정 위치
+## TRIP 수정 위치 (assets/data.js)
 - plans: 여행안과 출발·도착·귀국일
 - days[1], days[2]: 기존 배열의 0~6번 필드는 그대로입니다. 7번 객체는 선택 확장 정보입니다.
 - days[plan][row][7].slots: 오전/오후/저녁을 키로 사용합니다. 값은 장소 ID 배열 또는 직접 적은 일정 문자열입니다. 비어 있으면 기존 places 순서대로 표시합니다. 시간대를 임의 배정하지 않습니다.
@@ -48,6 +60,12 @@ localStorage 키는 family-australia-atlas-v1, 백업 형식은 australia-atlas/
 가격·운영시간·식당·연락처를 추가로 추정하지 않았습니다. 공개 원본에는 실제 예약번호와 사용자 스냅샷을 넣지 않습니다.
 
 ## 검증
+개발 점검(최초 1회 npm install, npx playwright install chromium):
+- npm run check: 390/768/1440px 화면별 스크린샷과 오버플로·글자 크기·터치 크기·콘솔 오류 점검
+- node tools/check.mjs --fixture tools/fixtures/storage.json: 가짜 저장 데이터를 넣은 상태로 점검
+- node tools/verify-data.mjs: 픽스처 표시, 백업 내보내기→가져오기 왕복, HTML 사본 오프라인 열기 점검
+- node tools/diff-shots.mjs: 기준 스크린샷(.shots-baseline)과 픽셀 비교
+
 390 / 768 / 1440px에서 5개 화면·하루 상세·공통 모달의 scrollWidth와 clientWidth 일치를 확인했습니다. 표시 텍스트 최소 12px, 조작 요소 최소 44×44px를 측정했습니다. 본문 Unsplash 출처와 OpenStreetMap 저작권 표시는 인라인 링크 예외입니다. 라이트·다크 실제 텍스트 대비 검사에서 4.5:1 미만은 없었습니다.
 
 기존 v1 저장 데이터를 새 앱 실행 전에 넣은 VM 테스트에서 날짜·가족 메모, 숙소 상태, 항공 예약번호, 체크리스트, 환율이 유지됐습니다. 실제 브라우저에서 입력·저장·새로고침도 확인했습니다. 파일 선택 기반 복원 시험은 Chrome 확장 파일 접근 권한 제한으로 실행하지 못했습니다. 이 제한을 저장 데이터 호환성 통과와 혼동하지 않습니다.
