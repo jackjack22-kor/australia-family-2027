@@ -42,7 +42,6 @@ h2{font-size:var(--fs-h2);font-weight:700;line-height:1.35}
 h3{font-size:var(--fs-h3);font-weight:700;line-height:1.4}
 small,.fine{font-size:var(--fs-meta)}
 .fine{color:var(--muted-2);line-height:1.6}
-.muted{color:var(--muted)}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none;padding:0;-webkit-tap-highlight-color:transparent}
 a{color:inherit;text-underline-offset:3px;-webkit-tap-highlight-color:transparent}
@@ -79,7 +78,6 @@ details p{font-size:var(--fs-sub);color:var(--muted);margin:var(--sp-2) 0}
 .tabbar a[aria-current=page]{color:var(--primary);font-weight:700}
 main{max-width:640px;margin:0 auto;padding:var(--sp-4) var(--page-x) var(--sp-6);min-height:70vh}
 section[data-page]{scroll-margin-top:76px}
-.page-intro{font-size:var(--fs-sub);color:var(--muted);margin:0 0 var(--sp-4)}
 .footer{max-width:640px;margin:0 auto;padding:var(--sp-2) var(--page-x) calc(var(--tabbar-h) + 32px + env(safe-area-inset-bottom));font-size:var(--fs-meta);color:var(--muted-2);display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:center;text-align:center}
 #toast{position:fixed;bottom:calc(var(--tabbar-h) + 24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:var(--surface);padding:12px 20px;border-radius:var(--r-inner);z-index:100;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;font-size:var(--fs-sub);max-width:calc(100vw - 32px);width:max-content}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -102,7 +100,6 @@ dialog p{font-size:var(--fs-sub)}
 .sheet .check-row{border-top:0;margin:0 0 var(--sp-2)}
 .sheet-done{width:100%;margin-top:var(--sp-2)}
 .manage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-2);margin:var(--sp-3) 0}
-.manage-row{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);padding:var(--sp-2) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:var(--sp-3) 0;font-size:var(--fs-sub);font-weight:700}
 
 /* ── 공통 컴포넌트 ── */
 .card{background:var(--surface);border-radius:var(--r-card);padding:var(--card-pad)}
@@ -221,7 +218,7 @@ main{max-width:var(--content-max);padding:var(--sp-6) 32px 48px}
 .home-side{grid-area:side}}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-@media print{.appbar,.tabbar,.footer,button,dialog,.map-panel,.subnav,.date-strip,.itinerary-controls{display:none!important}body{background:#fff!important;color:#111!important;font-size:10pt}main{margin:0;padding:0;max-width:none}[data-page]{display:none!important}#print-guide{display:block!important}.print-day{break-inside:avoid;border-top:1px solid #ddd;padding:12px 0}.print-day h3{font-size:14pt}.print-day p{font-size:10pt}a{color:#111;text-decoration:none}@page{size:A4;margin:15mm}}
+@media print{.appbar,.tabbar,.footer,button,dialog,.map-card,.page-tools,.subbar{display:none!important}body{background:#fff!important;color:#111!important;font-size:10pt}main{margin:0;padding:0;max-width:none}[data-page]{display:none!important}#print-guide{display:block!important}.print-day{break-inside:avoid;border-top:1px solid #ddd;padding:12px 0}.print-day h3{font-size:14pt}.print-day p{font-size:10pt}a{color:#111;text-decoration:none}@page{size:A4;margin:15mm}}
 
 /* ── 일정 목록 ── */
 .page-tools{margin:0 0 var(--sp-2)}
@@ -458,50 +455,38 @@ body[data-view=compare] #plan-chip{display:none}
 .booking-hotels{max-width:none}
 .hotel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* ── 화면별 기존 스타일 · Phase 2~4에서 새 컴포넌트로 교체한다 ── */
-.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:15px;margin-bottom:14px}
-.section-heading h2{font-size:24px;margin:0}
-.section-heading small{font-size:var(--fs-min);color:var(--muted)}
-.section-gap{margin-top:38px}
-.fine{font-size:var(--fs-min);color:var(--muted);line-height:1.8}
-.muted{color:var(--muted)}
-.progress-panel{display:flex;align-items:center;gap:28px;border-bottom:1px solid var(--line);padding:0 0 25px;margin-bottom:28px}
-.progress-ring{width:100px;height:100px;flex:0 0 100px;transform:rotate(-90deg)}
-.progress-ring circle{fill:none;stroke:var(--line);stroke-width:6}
-.progress-ring .progress{stroke:var(--st-ok-fg);stroke-linecap:round;transition:stroke-dashoffset .3s}
-.progress-ring text{transform:rotate(90deg);transform-origin:50% 50%;fill:var(--ink);font-size:21px;font-weight:700}
-.progress-panel h3{margin:0 0 5px;font-size:19px}
-.progress-panel p{margin:0;color:var(--muted);font-size:12px}
-.prep-layout{display:grid;grid-template-columns:1.7fr 1fr;gap:40px}
-.task-group{margin-bottom:27px}
-.task-group h3{font-family:inherit;font-size:22px;margin-bottom:12px}
-.prep-aside{position:sticky;top:155px;align-self:start}
-.notes textarea{width:100%;height:150px;margin:12px 0;padding:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical;font-size:13px}
-.empty-state{padding:25px;background:var(--surface-2);font-size:13px}
-@media(max-width:760px){.section-heading h2{font-size:23px}.section-heading small{font-size:var(--fs-min)}.prep-layout{grid-template-columns:1fr;gap:15px}.prep-aside{position:static}.progress-panel{gap:19px}.progress-ring{width:86px;height:86px;flex-basis:86px}.section-gap{margin-top:29px}}
-.section-heading h2{font-size:var(--fs-h2)}
-.task-group h3{font-size:var(--fs-h3);font-family:inherit}
-.fine{font-size:var(--fs-meta)}
-.prep-layout>*{min-width:0;max-width:100%}
-.owner-filter,.owner-select{display:flex;align-items:center;gap:12px}
-.owner-filter{margin-bottom:24px;font-size:14px}
-.owner-filter select,.owner-select select{padding:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;max-width:180px}
-.owned-task{display:grid;grid-template-columns:minmax(0,1fr) 85px;gap:10px;border-bottom:1px solid var(--line)}
-.owner-select select{width:85px}
-.task-group .section-heading{flex-wrap:wrap}
-.prep-aside{top:76px}
-.prep-aside li{margin:14px 0}
-@media(max-width:899px){.section-heading{flex-wrap:wrap}.progress-panel{align-items:flex-start}}
-.notes textarea{font-size:16px;line-height:1.6}
-.fine,.task-group .fine{font-size:13px}
-.section-heading small{font-size:13px}
-.task-group h3{font-size:18px}
-.emergency-card{border-top:3px solid var(--st-act-fg);padding:24px;background:var(--surface);margin-top:36px}
-.emergency-number{display:flex!important;align-items:center;gap:20px;text-decoration:none;padding:15px 0;color:var(--st-act-fg);flex-wrap:wrap}
-.emergency-number strong{font-size:36px}
-.emergency-card dl{display:grid;grid-template-columns:160px minmax(0,1fr);gap:14px;margin:16px 0}
-.emergency-card dt{color:var(--muted)}
-.emergency-card dd{margin:0;overflow-wrap:anywhere}
-@media(max-width:899px){.emergency-card{padding:20px 16px}.emergency-card dl{grid-template-columns:1fr;gap:6px}.emergency-card dd{margin-bottom:12px}.emergency-number{gap:12px}}
-.owned-task .check-row{border-top:0}
-.notes textarea{border-radius:12px}
+/* ── 준비 ── */
+.prep-layout{display:flex;flex-direction:column;gap:var(--gap)}
+.prep-main,.prep-aside{display:flex;flex-direction:column;gap:var(--gap)}
+.progress-card{display:flex;align-items:center;gap:18px}
+.ring{display:flex;align-items:center;justify-content:center;width:84px;height:84px;flex-shrink:0;border-radius:50%;background:conic-gradient(var(--primary) calc(var(--p) * 1%),var(--surface-2) 0)}
+.ring span{display:flex;align-items:center;justify-content:center;width:66px;height:66px;border-radius:50%;background:var(--surface);font-size:20px;font-weight:800}
+.progress-card h2{margin:0;font-size:var(--fs-page);font-weight:800}
+.progress-card p{margin:4px 0 0;font-size:var(--fs-sub);color:var(--muted)}
+.task-card{padding:6px var(--sp-4);border-bottom:0}
+.task-card>summary{min-height:52px;font-size:var(--fs-h3);font-weight:800}
+.task-card-title{flex:1}
+.task-card-meta{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-meta);font-weight:400;color:var(--muted-2)}
+.task-card-meta .badge{font-weight:800}
+.owned-task{display:flex;align-items:center;gap:var(--sp-2);border-top:1px solid var(--line)}
+.owned-task .check-row{flex:1;min-height:56px;border-top:0;font-size:var(--fs-body-2)}
+.owner-pill{flex-shrink:0;min-height:var(--tap);max-width:92px;padding:0 12px;border:1px dashed var(--muted-2);border-radius:var(--r-pill);background:var(--surface);color:var(--ink-2);font-size:var(--fs-meta);font-weight:600;text-align:center;appearance:none;-webkit-appearance:none;cursor:pointer}
+.owner-pill.set{border:0;background:var(--surface-2);color:var(--ink);font-weight:700}
+.more-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;border-top:1px solid var(--line);color:var(--primary);font-size:var(--fs-sub);font-weight:700}
+.empty{margin:0;color:var(--muted)}
+.risk-list{margin:var(--sp-2) 0 0;padding-left:18px;font-size:var(--fs-sub);color:var(--muted)}
+.risk-list li{margin:6px 0}
+.emergency-call{display:flex;align-items:center;gap:var(--sp-3);margin-top:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-inner);background:var(--st-act-bg);color:var(--st-act-fg);text-decoration:none;font-size:var(--fs-sub);font-weight:700}
+.emergency-call strong{font-size:28px;font-weight:800;letter-spacing:.02em}
+.emergency-call span:last-child{margin-left:auto}
+.emergency dt{width:110px}
+
+/* ── 관리 모달 ── */
+.manage-section{padding:var(--sp-3) 0;border-top:1px solid var(--line)}
+.manage-section h3{margin:0 0 var(--sp-2);font-size:var(--fs-body-2);font-weight:800}
+.manage-section .fine{margin:var(--sp-2) 0 0}
+#storage-explain{margin:0;font-size:var(--fs-sub);color:var(--muted)}
+.manage-section label:first-of-type{margin-top:0}
+@media (min-width:1024px){
+.prep-layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:var(--sp-6);align-items:start}
+.prep-aside{position:sticky;top:84px}}
